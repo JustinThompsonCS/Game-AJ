@@ -1,4 +1,5 @@
 import java.awt.image.*;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 // 
 public class Player {
@@ -9,36 +10,38 @@ public class Player {
 	private double mInc;
 	private BufferedImage playerSprite;
 	
-	public Player(int h, int w, BufferedImage sprite, double x, double y) {
-		height = h;
-		width = w;
-		playerSprite = sprite;
+	public Player(double x, double y, int width, int height, BufferedImage playerSprite) {
+		this.height = height;
+		this.width = width;
+		this.playerSprite = playerSprite;
 		this.x = x;
 		this.y = y;
 		mInc = 1.0;
 	}
 	
-	public Player(int h, int w, BufferedImage sprite, double x, double y, double mI) {
-		height = h;
-		width = w;
-		playerSprite = sprite;
+	public Player(double x, double y, int width, int height, BufferedImage playerSprite, double mI) {
+		this.height = height;
+		this.width = width;
+		this.playerSprite = playerSprite;
 		this.x = x;
 		this.y = y;
 		mInc = mI;
 	}
 	
-	public void playerMove(MyKeyListener kb) {
+	public void move(MyKeyListener kb) {
 	     if (kb.isKeyDown(KeyEvent.VK_W)) y -= mInc;
 	     if (kb.isKeyDown(KeyEvent.VK_S)) y += mInc;
 	     if (kb.isKeyDown(KeyEvent.VK_D)) x += mInc;
 	     if (kb.isKeyDown(KeyEvent.VK_A)) x -= mInc;
+	     if (kb.isKeyDown(KeyEvent.VK_W)) System.out.println("UP!");
 	}
 	
-	public void update(MyKeyListener kb) {
-		
+	public void update(MyKeyListener kb, Graphics g) {
+		move(kb);
+		paint(g);
 	}
 	
-	public void paint() {
-		
+	public void paint(Graphics g) {
+		g.drawImage(playerSprite, (int)x, (int)y, width, height, null);
 	}
 }

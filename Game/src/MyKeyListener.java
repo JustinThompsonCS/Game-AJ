@@ -18,6 +18,7 @@ public class MyKeyListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		keyDown.add(e.getKeyCode());
+		System.out.println("Key pressed");
 	}
 
 	@Override
