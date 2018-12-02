@@ -1,5 +1,6 @@
 
 public class Game {
+	MyKeyListener kb;
 	
 	public void update() {  //Updates variables and runs methods
 		long startTime = System.currentTimeMillis();
