@@ -30,6 +30,8 @@ public class Player {
 	public void playerMove(MyKeyListener kb) {
 	     if (kb.isKeyDown(KeyEvent.VK_W)) y -= mInc;
 	     if (kb.isKeyDown(KeyEvent.VK_S)) y += mInc;
+	     if (kb.isKeyDown(KeyEvent.VK_D)) x += mInc;
+	     if (kb.isKeyDown(KeyEvent.VK_A)) x -= mInc;
 	}
 	
 	public void update(MyKeyListener kb) {
