@@ -1,14 +1,14 @@
 import java.awt.image.*;
 import java.awt.event.KeyEvent;
 // 
-public class Player123 {
+public class Player {
 	private int height;
 	private int width;
 	private int x;
 	private int y;
 	private BufferedImage playerSprite;
 	
-	public Player123(int h, int w, BufferedImage sprite, int x, int y) {
+	public Player(int h, int w, BufferedImage sprite, int x, int y) {
 		height = h;
 		width = w;
 		playerSprite = sprite;
