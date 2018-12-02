@@ -18,4 +18,8 @@ public class Player {
 	public void update(MyKeyListener kb) {
 		
 	}
+	
+	public void paint() {
+		
+	}
 }
