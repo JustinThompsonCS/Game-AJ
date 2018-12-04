@@ -33,7 +33,6 @@ public class Player {
 	     if (kb.isKeyDown(KeyEvent.VK_S)) y += mInc;
 	     if (kb.isKeyDown(KeyEvent.VK_D)) x += mInc;
 	     if (kb.isKeyDown(KeyEvent.VK_A)) x -= mInc;
-	     if (kb.isKeyDown(KeyEvent.VK_W)) System.out.println("UP!");
 	}
 	
 	public void update(MyKeyListener kb, Graphics g) {
