@@ -20,7 +20,6 @@ public class Game extends JPanel {
 		kb = new MyKeyListener();
 		addKeyListener(kb);
 		setFocusable(true);
-		
 		int px = 0;
 		int py = 0;
 		int pWidth = 30;
@@ -32,7 +31,6 @@ public class Game extends JPanel {
 			System.out.println("Player Image not found");
 			return;
 		}
-		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = screenSize.getWidth();
 		screenHeight = screenSize.getHeight();
@@ -47,6 +45,9 @@ public class Game extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 		player.update(kb, g);
+		/*
+		 * All other object updates go here
+		 */
 		
 	}
 	
