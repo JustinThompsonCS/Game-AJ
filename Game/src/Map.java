@@ -19,11 +19,11 @@ public class Map {
 		return rooms[x][y];
 	}
 
-	public int getMapWidth() {
+	public int getWidth() {
 		return mapWidth;
 	}
 	
-	public int getMapHeight() {
+	public int getHeight() {
 		return mapHeight;
 	}
 }
