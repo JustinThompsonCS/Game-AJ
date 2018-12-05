@@ -1,5 +1,6 @@
 import java.awt.image.*;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 // 
 public class Player {
@@ -43,4 +44,14 @@ public class Player {
 	public void paint(Graphics g) {
 		g.drawImage(playerSprite, (int)x, (int)y, width, height, null);
 	}
+	
+	public Rectangle getRect() { return new Rectangle((int)x, (int)y, width, height); }
+	
+	public double getX() { return x; }
+	
+	public double getY() { return y; }
+	
+	public int getWidth() { return width; }
+	
+	public int getHeight() { return height; }
 }
