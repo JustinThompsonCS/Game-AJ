@@ -45,6 +45,10 @@ public class Game extends JPanel {
 		frame.setVisible(true);
 	}
 	
+	public void pauseMenu() {
+		//TODO
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -59,6 +63,7 @@ public class Game extends JPanel {
 		long startTime = System.currentTimeMillis();
 		repaint();
 		if (kb.isKeyDown(KeyEvent.VK_ESCAPE)) {
+			//pauseMenu(); //TODO
 			setVisible(false);
 			frame.dispose();
 		}
