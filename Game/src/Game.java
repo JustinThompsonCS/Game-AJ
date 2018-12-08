@@ -64,14 +64,7 @@ public class Game extends JPanel {
 			return;
 		}
 		
-		public void collision(Player p, Block b) {
-			Rectangle rect1 = p.getRekt();
-			Rectangle rect2 = b.getRekt();
-			
-			if(p.intersects(b)) {
-				
-			}
-		}
+		
 		
 		
 		map = new Map(level);
@@ -88,6 +81,26 @@ public class Game extends JPanel {
 		frame.setVisible(true);
 	}
 	
+	public boolean isCollision(Player p, Block b) {
+		Rectangle rect1 = p.getRekt();
+		Rectangle rect2 = b.getRekt();
+		
+		if(rect1.intersects(rect2)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void fixCollision() {
+		if (isCollision(player, floor)) {
+			if (player.getDir() == 1) { player.setX(player.getX() - player.getMInc()); }
+			if (player.getDir() == 3) { player.setX(player.getX() + player.getMInc()); }
+			if (player.getDir() == 2) { player.setY(player.getY() - player.getMInc()); }
+			if (player.getDir() == 4) { player.setY(player.getY() + player.getMInc()); }
+		}
+		
+	}
+	
 	public void pauseMenu() {
 		//TODO
 		paused = true;
@@ -100,7 +113,8 @@ public class Game extends JPanel {
 			map.getRoom(roomX, roomY).draw(g, screenSize);
 			player.update(kb, g);
 			floor.update(g);
-			floor.collide(player);
+			fixCollision();
+			
 			
 		}
 		else {

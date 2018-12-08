@@ -10,6 +10,7 @@ public class Player {
 	private double y;
 	private double mInc;
 	private BufferedImage playerSprite;
+	private int dir; // 0 = no dir, 1 = right, 2 = down, 3 = left, 4 = up
 	
 	public Player(double x, double y, int width, int height, BufferedImage playerSprite) {
 		this.height = height;
@@ -18,6 +19,7 @@ public class Player {
 		this.x = x;
 		this.y = y;
 		mInc = 1.0;
+		dir = 0;
 	}
 	
 	public Player(double x, double y, int width, int height, BufferedImage playerSprite, double mI) {
@@ -27,13 +29,26 @@ public class Player {
 		this.x = x;
 		this.y = y;
 		mInc = mI;
+		dir = 0;
 	}
 	
 	public void move(MyKeyListener kb) {
-	     if (kb.isKeyDown(KeyEvent.VK_W)) y -= mInc;
-	     if (kb.isKeyDown(KeyEvent.VK_S)) y += mInc;
-	     if (kb.isKeyDown(KeyEvent.VK_D)) x += mInc;
-	     if (kb.isKeyDown(KeyEvent.VK_A)) x -= mInc;
+	     if (kb.isKeyDown(KeyEvent.VK_W)) {
+	    	 y -= mInc;
+	    	 dir = 4;
+	     }
+	     if (kb.isKeyDown(KeyEvent.VK_S)) {
+	    	 y += mInc;
+	    	 dir = 2;
+	     }
+	     if (kb.isKeyDown(KeyEvent.VK_D)) {
+	    	 x += mInc;
+	    	 dir = 1;
+	     }
+	     if (kb.isKeyDown(KeyEvent.VK_A)) {
+	    	 x -= mInc;
+	    	 dir = 3;
+	     }
 	}
 	
 	public void update(MyKeyListener kb, Graphics g) {
@@ -50,6 +65,18 @@ public class Player {
 	public double getX() { return x; }
 	
 	public double getY() { return y; }
+	
+	public void setXY(double setX, double setY) {
+		x = setX;
+		y = setY;
+	}
+	public double getMInc() { return mInc; }
+	
+	public void setX(double setX) {	x = setX; }
+	
+	public void setY(double setY) {y = setY; }
+	
+	public int getDir() { return dir; }
 	
 	public int getWidth() { return width; }
 	
