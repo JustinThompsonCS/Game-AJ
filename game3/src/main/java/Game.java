@@ -8,6 +8,9 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -33,7 +36,7 @@ public class Game extends JPanel {
 	int roomY;
 	int level;
 	
-	public Game() throws IOException {
+	public Game() throws IOException, URISyntaxException {
 		kb = new MyKeyListener();
 		addKeyListener(kb);
 		setFocusable(true);
@@ -48,7 +51,8 @@ public class Game extends JPanel {
 		double pMinc = 2;
 		
 		try {
-			BufferedImage playerImage = ImageIO.read(new File("Mario_8Bit.png"));
+			URI image = new URI(this.getClass().getClassLoader().getResource("Mario_8Bit.png").toString());
+			BufferedImage playerImage = ImageIO.read(new File(image));
 			player = new Player(px, py, pWidth, pHeight, playerImage, pMinc);
 		} catch (IOException e) {
 			System.out.println("Player Image not found");
@@ -61,7 +65,8 @@ public class Game extends JPanel {
 		int fx = 700;
 		int fy = 500;
 		try {
-			BufferedImage floorImage = ImageIO.read(new File("floor.png"));
+			URI image = new URI(this.getClass().getClassLoader().getResource("floor.png").toString());
+			BufferedImage floorImage = ImageIO.read(new File(image));
 			floor = new Block(fx, fy, fWidth, fHeight, floorImage);
 		} catch (IOException e) {
 			System.out.println("floor Image not found");
@@ -180,7 +185,7 @@ public class Game extends JPanel {
 		timer.start();
 	}
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, URISyntaxException {
 		Game game = new Game();
 		game.start();
 	}
