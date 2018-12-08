@@ -12,13 +12,17 @@ public class lineChecker {
 		for(int i = 0; i < rects.length; i++) {
 			for(int j = 0; j < 4; j++) {
 				if(j == 0) {
-					lines[k].x1 = rects[i].x;
-					lines[k].y1 = rects[i].y;
-					lines[k].x2 = rects[i].x + rects[i].width;
-					lines[k].y2 = rects[i].y;
+					lines[k] = new Line(rects[i].x, rects[i].y, rects[i].x + rects[i].width, rects[i].y);
 				}
-				
-				
+				if(j == 1) {
+					lines[k] = new Line(rects[i].x + rects[i].width, rects[i].y, rects[i].x + rects[i].width, rects[i].y + rects[i].height);
+				}
+				if(j == 2) {
+					lines[k] = new Line(rects[i].x + rects[i].width, rects[i].y + rects[i].height, rects[i].x, rects[i].y + rects[i].height);
+				}
+				if(j == 3) {
+					lines[k] = new Line(rects[i].x, rects[i].y + rects[i].height, rects[i].x, rects[i].y);
+				}
 				k++;
 			}
 		}
