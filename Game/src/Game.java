@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -22,6 +23,7 @@ public class Game extends JPanel {
 	private boolean paused;
 	
 	Player player;
+	Block floor;
 	
 	Map map;
 	int roomX;
@@ -35,6 +37,8 @@ public class Game extends JPanel {
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = screenSize.getWidth();
 		screenHeight = screenSize.getHeight();
+		
+		
 		int px = (int)(screenWidth / 2 - 25);
 		int py = (int)(screenHeight / 2 - 25);
 		int pWidth = 49;
@@ -46,6 +50,29 @@ public class Game extends JPanel {
 			System.out.println("Player Image not found");
 			return;
 		}
+		
+		//Instantiating a floor object
+		int fWidth = 250;
+		int fHeight = 49;
+		int fx = 1000;
+		int fy = 1000;
+		try {
+			BufferedImage floorImage = ImageIO.read(new File("floor.png"));
+			floor = new Block(fx, fy, fWidth, fHeight, floorImage);
+		} catch (IOException e) {
+			System.out.println("floor Image not found");
+			return;
+		}
+		
+		public void collision(Player p, Block b) {
+			Rectangle rect1 = p.getRekt();
+			Rectangle rect2 = b.getRekt();
+			
+			if(p.intersects(b)) {
+				
+			}
+		}
+		
 		
 		map = new Map(level);
 		
@@ -72,6 +99,9 @@ public class Game extends JPanel {
 		if (!paused) {
 			map.getRoom(roomX, roomY).draw(g, screenSize);
 			player.update(kb, g);
+			floor.update(g);
+			floor.collide(player);
+			
 		}
 		else {
 			//TODO Pause menu drawing methods
@@ -115,4 +145,8 @@ public class Game extends JPanel {
 		Game game = new Game();
 		game.start();
 	}
+	
+	
+	
+	
 }
