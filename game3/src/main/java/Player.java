@@ -33,6 +33,8 @@ public class Player {
 	}
 	
 	public void move(MyKeyListener kb) {
+		//System.out.println(kb);
+		
 	     if (kb.isKeyDown(KeyEvent.VK_W)) {
 	    	 y -= mInc;
 	    	 dir = Direction.North;

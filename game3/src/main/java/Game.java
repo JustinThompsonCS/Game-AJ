@@ -39,15 +39,17 @@ public class Game extends JPanel {
 		setFocusable(true);
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = screenSize.getWidth();
-		screenHeight = screenSize.getHeight();
+		screenHeight = screenSize.getHeight()/2;
 				
 		int px = (int)(screenWidth / 2 - 25);
 		int py = (int)(screenHeight / 2 - 25);
 		int pWidth = 49;
 		int pHeight = 49;
+		double pMinc = 2;
+		
 		try {
 			BufferedImage playerImage = ImageIO.read(new File("Mario_8Bit.png"));
-			player = new Player(px, py, pWidth, pHeight, playerImage);
+			player = new Player(px, py, pWidth, pHeight, playerImage, pMinc);
 		} catch (IOException e) {
 			System.out.println("Player Image not found");
 			return;
@@ -56,7 +58,7 @@ public class Game extends JPanel {
 		//Instantiating a floor object
 		int fWidth = 250;
 		int fHeight = 49;
-		int fx = 500;
+		int fx = 700;
 		int fy = 500;
 		try {
 			BufferedImage floorImage = ImageIO.read(new File("floor.png"));
@@ -77,8 +79,10 @@ public class Game extends JPanel {
 		frame = new JFrame("Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(this);
-		//frame.setSize(screenSize);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+		Dimension ss = new Dimension(screenSize.width, screenSize.height/2);
+		frame.setSize(ss);
+		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setUndecorated(true);
 		frame.setVisible(true);
 	}
@@ -86,6 +90,13 @@ public class Game extends JPanel {
 	public boolean isCollision(Player p, Block b) {
 		Rectangle rect1 = p.getRekt();
 		Rectangle rect2 = b.getRekt();
+		
+		Rectangle rect3 = rect1.intersection(rect2);
+		
+		/*
+		if (rect3.x > rect1.x)
+			return Direction.South;
+			*/
 		
 		if(rect1.intersects(rect2)) {
 			return true;
@@ -126,7 +137,6 @@ public class Game extends JPanel {
 		/*
 		 * All other object updates go here
 		 */
-		
 	}
 	
 	public void update() {  //Updates variables and runs methods
@@ -179,3 +189,4 @@ public class Game extends JPanel {
 	
 	
 }
+
