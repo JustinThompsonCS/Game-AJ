@@ -9,7 +9,7 @@ public class ExampleTest {
 	private Example ex = new Example();
 
 	@Test
-	public void test1() {
+	public void testAdd_1_2() {
 		// arrange
 		int a = 1;
 		int b = 2;
@@ -24,7 +24,7 @@ public class ExampleTest {
 	@Test
 	public void test2() {
 		// arrange
-		int a = 1;
+		int a = 2;
 		int b = 2;
 		
 		// act
@@ -32,5 +32,18 @@ public class ExampleTest {
 		
 		// assert
 		assertEquals(4, c);
+	}
+	
+	@Test
+	public void testSubtract_5_1() {
+		// arrange
+		int a = 5;
+		int b = 1;
+		
+		// act
+		int c = ex.subtract(a, b);
+		
+		// assert
+		assertEquals(4, c);		
 	}
 }
