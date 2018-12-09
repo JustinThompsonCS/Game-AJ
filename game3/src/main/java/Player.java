@@ -8,9 +8,10 @@ public class Player {
 	private int width;
 	private double x;
 	private double y;
-	private double mInc;
+	private double speed;
 	private BufferedImage playerSprite;
 	private Direction dir; // 0 = no dir, 1 = right, 2 = down, 3 = left, 4 = up
+	private int hp;
 	
 	public Player(double x, double y, int width, int height, BufferedImage playerSprite) {
 		this.height = height;
@@ -18,43 +19,58 @@ public class Player {
 		this.playerSprite = playerSprite;
 		this.x = x;
 		this.y = y;
-		mInc = 1.0;
+		speed = 1.0;
+		hp = 4;
 		dir = Direction.None;
 	}
 	
-	public Player(double x, double y, int width, int height, BufferedImage playerSprite, double mI) {
+	public Player(double x, double y, int width, int height, BufferedImage playerSprite, double spd) {
 		this.height = height;
 		this.width = width;
 		this.playerSprite = playerSprite;
 		this.x = x;
 		this.y = y;
-		mInc = mI;
+		speed = spd;
 		dir = Direction.None;
 	}
 	
-	public void move(MyKeyListener kb) {
-		//System.out.println(kb);
-		
+	public void move(MyKeyListener kb, Block[] blocks) {
+		double tempY = y;
+		double tempX = x;
 	     if (kb.isKeyDown(KeyEvent.VK_W)) {
-	    	 y -= mInc;
-	    	 dir = Direction.North;
+	    	 tempY -= speed;
 	     }
 	     if (kb.isKeyDown(KeyEvent.VK_S)) {
-	    	 y += mInc;
-	    	 dir = Direction.South;
+	    	 tempY += speed;
 	     }
 	     if (kb.isKeyDown(KeyEvent.VK_D)) {
-	    	 x += mInc;
-	    	 dir = Direction.East;
+	    	 tempX += speed;
 	     }
 	     if (kb.isKeyDown(KeyEvent.VK_A)) {
-	    	 x -= mInc;
-	    	 dir = Direction.West;
+	    	 tempX -= speed;
 	     }
+	     
+	     boolean canMoveX = true;
+	     boolean canMoveY = true;
+	     
+	     for (Block block: blocks) {
+	    	 Rectangle pR = new Rectangle((int)tempX, (int)y, width, height);
+	    	 Rectangle pR1 = new Rectangle((int)x, (int)tempY, width, height);
+	    	 
+	    	 if (pR.intersects(block.getRekt())) {
+	    		 canMoveX = false;
+	    	 }
+	    	 if (pR1.intersects(block.getRekt())) {
+	    		 canMoveY = false;
+	    	 }
+	    	 if (!canMoveX && !canMoveY) {break; }
+	     }
+	     if (canMoveX){x = tempX;}
+	     if (canMoveY){y = tempY;}
 	}
 	
-	public void update(MyKeyListener kb, Graphics g) {
-		move(kb);
+	public void update(MyKeyListener kb, Graphics g, Block[] blocks) {
+		move(kb, blocks);
 		paint(g);
 	}
 	
@@ -68,19 +84,13 @@ public class Player {
 	
 	public double getY() { return y; }
 	
-	public void setXY(double setX, double setY) {
-		x = setX;
-		y = setY;
-	}
-	public double getMInc() { return mInc; }
-	
-	public void setX(double setX) {	x = setX; }
-	
-	public void setY(double setY) {y = setY; }
+	public double getSpeed() { return speed; }
 	
 	public Direction getDir() { return dir; }
 	
 	public int getWidth() { return width; }
 	
 	public int getHeight() { return height; }
+	
+	public int getHp() { return hp; }
 }

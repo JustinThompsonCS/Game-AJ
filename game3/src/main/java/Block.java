@@ -2,18 +2,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.*;
 
-public class Block {
-	private int height;
-	private int width;
-	private double x;
-	private double y;
+public class Block extends RoomObject {
 	private BufferedImage blockSprite;
 	
 	public Block(double xLoc, double yLoc, int w, int h, BufferedImage bSprite) {
-		height = h;
-		width = w;
-		x = xLoc;
-		y = yLoc;
+		super(xLoc, yLoc, w, h);
 		blockSprite = bSprite;
 	}
 	
@@ -23,15 +16,8 @@ public class Block {
 		paint(g);
 	}
 	
-	public void paint(Graphics g) {
-		g.drawImage(blockSprite, (int)x, (int)y, width, height, null);
+	@Override
+	protected void paint(Graphics g) {
+		g.drawImage(blockSprite, (int)getX(), (int)getY(), getWidth(), getHeight(), null);
 	}
-	
-	public double getX() { return x; }
-	
-	public double getY() { return y; }
-	
-	public int getWidth() { return width; }
-	
-	public int getHeight() { return height; }
 }

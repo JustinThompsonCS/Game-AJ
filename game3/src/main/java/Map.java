@@ -4,13 +4,13 @@ public class Map {
 	private int mapHeight;
 	Room[][] rooms;
 	
-	public Map(int level) {
+	public Map(int level, Block[][] blocks) {
 		mapWidth = 5;
 		mapHeight = 5;
 		rooms = new Room[mapWidth][mapHeight];
 		for (int i = 0; i < rooms.length; i++) {
 			for (int k = 0; k < rooms[0].length; k++) {
-				rooms[i][k] = new Room(level); 
+				rooms[i][k] = new Room(level, blocks); 
 			}
 		}
 	}

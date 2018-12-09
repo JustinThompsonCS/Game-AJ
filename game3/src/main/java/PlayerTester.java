@@ -31,7 +31,7 @@ public class PlayerTester extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		p.update(kb, g);
+		//p.update(kb, g);
 	}
 	
 	public void updatePlayer() {

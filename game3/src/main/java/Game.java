@@ -30,6 +30,8 @@ public class Game extends JPanel {
 	
 	Player player;
 	Block floor;
+	Block[][] blocks;
+	
 	
 	Map map;
 	int roomX;
@@ -73,10 +75,11 @@ public class Game extends JPanel {
 			return;
 		}
 		
+		blocks = new Block[1][1];
+		blocks[0][0] = floor;
 		
 		
-		
-		map = new Map(level);
+		map = new Map(level, blocks);
 		
 		exitGame = false;
 		paused = false;
@@ -85,38 +88,11 @@ public class Game extends JPanel {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(this);
 		
-		Dimension ss = new Dimension(screenSize.width, screenSize.height/2);
+		Dimension ss = new Dimension(screenSize.width, screenSize.height);
 		frame.setSize(ss);
 		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setUndecorated(true);
 		frame.setVisible(true);
-	}
-	
-	public boolean isCollision(Player p, Block b) {
-		Rectangle rect1 = p.getRekt();
-		Rectangle rect2 = b.getRekt();
-		
-		Rectangle rect3 = rect1.intersection(rect2);
-		
-		/*
-		if (rect3.x > rect1.x)
-			return Direction.South;
-			*/
-		
-		if(rect1.intersects(rect2)) {
-			return true;
-		}
-		return false;
-	}
-	
-	public void fixCollision() {
-		if (isCollision(player, floor)) {			
-			if (player.getDir() == Direction.East) { player.setX(player.getX() - player.getMInc()); }
-			if (player.getDir() == Direction.West) { player.setX(player.getX() + player.getMInc()); }
-			if (player.getDir() == Direction.South) { player.setY(player.getY() - player.getMInc()); }
-			if (player.getDir() == Direction.North) { player.setY(player.getY() + player.getMInc()); }
-		}
-		
 	}
 	
 	public void pauseMenu() {
@@ -129,11 +105,9 @@ public class Game extends JPanel {
 		super.paint(g);
 		if (!paused) {
 			map.getRoom(roomX, roomY).draw(g, screenSize);
-			player.update(kb, g);
-			floor.update(g);
-			fixCollision();
-			
-			
+			player.update(kb, g, map.getRoom(roomX, roomY).getBlocks());
+			//floor.update(g);
+			//fixCollision();
 		}
 		else {
 			//TODO Pause menu drawing methods
@@ -186,12 +160,9 @@ public class Game extends JPanel {
 	}
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
+		System.out.println("Console");
 		Game game = new Game();
 		game.start();
 	}
-	
-	
-	
-	
 }
 
